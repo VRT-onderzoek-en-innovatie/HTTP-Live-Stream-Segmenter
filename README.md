@@ -6,6 +6,7 @@ these tools might be useful for other people to use, we decided to open-source
 them.
 
 This project contains:
+
  * A few parser scripts to dump binary formats into a "human" readable format.
    It's by no means an easy read, but has saved us many hours of watching
    hexdumps.

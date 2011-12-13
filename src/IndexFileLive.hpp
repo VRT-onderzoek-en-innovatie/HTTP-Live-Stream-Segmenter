@@ -17,6 +17,7 @@ public:
 
 	virtual void Begin();
 	virtual void AddSegment(unsigned long duration, std::string uri, std::string crypto_method = "NONE", std::string key_uri = "");
+	virtual void End();
 };
 
 #endif

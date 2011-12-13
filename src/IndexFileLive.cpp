@@ -42,3 +42,9 @@ void IndexFileLive::AddSegment(unsigned long duration, std::string uri, std::str
 		throw std::ios_base::failure("Could not rename Index file");
 	}
 }
+
+void IndexFileLive::End() {
+	m_out.open(m_filename.c_str(), std::ios_base::app | std::ios_base::out);
+
+	IndexFile::End();
+}

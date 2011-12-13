@@ -22,6 +22,7 @@ namespace Segmenter {
 MpegtsH264::MpegtsH264(const unsigned long length, const std::string extra_opts) :
 	Segmenter(length, extra_opts),
 	m_pcr_length( length * TS_PCR_FREQ ),
+	m_pcr_segstart( -1 ),
 	m_pmt_pid( TS_DUMMY_PID ),
 	m_h264_pid( TS_DUMMY_PID ) {
 	m_idr = ( extra_opts.compare("IDR") == 0 );

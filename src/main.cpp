@@ -188,7 +188,7 @@ int main(int argc, char *argv[]) {
 		out_file.exceptions( std::ofstream::failbit | std::ofstream::badbit );
 		std::string out_filename = out_filenames.Filename( index->Sequence() );
 		out_file.open(out_filename.c_str());
-		std::cerr << "Switching to file \"" << out_filename << "\"\n";
+		std::cerr << "Switching to file \"" << out_filename << "\"  ";
 
 		if( crypto && index->Sequence() % crypto == 1 ) {
 			// Switch Crypto key
@@ -218,6 +218,7 @@ int main(int argc, char *argv[]) {
 		
 		*out << std::flush;
 		out_file.close();
+		std::cerr << duration << "secs\n";
 
 		if( crypto ) {
 			index->AddSegment(rounded_duration, out_filename, crypto_module->method(), key_filename);

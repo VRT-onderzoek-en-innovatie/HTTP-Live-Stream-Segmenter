@@ -122,7 +122,7 @@ float MpegtsH264::copy_segment(std::istream *in, std::ostream *out) {
 					m_h264_pid = es_pid;
 					std::cerr << es_pid << "(h264) ";
 				} else {
-					std::cerr << es_pid;
+					std::cerr << es_pid << " ";
 				}
 				q += 3;
 				length -= 3 + 2 + PMT_ES_LENGTH(q);
@@ -131,6 +131,10 @@ float MpegtsH264::copy_segment(std::istream *in, std::ostream *out) {
 			if( m_media_pids.size() == 0 ) {
 				std::cerr << "None found, exiting...\n";
 				throw std::logic_error("No media PID's found");
+			}
+			if( m_h264_pid == TS_DUMMY_PID ) {
+				std::cerr << "No h264 PID found, exiting...\n";
+				throw std::logic_error("No h264 PID found");
 			}
 			std::cerr << "\n";
 

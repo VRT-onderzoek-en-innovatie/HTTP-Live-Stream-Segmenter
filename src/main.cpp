@@ -16,7 +16,8 @@
 
 int main(int argc, char *argv[]) {
 	float duration = 10;
-	FileArray::Sequence out_filenames("out-?????.ts", '?');
+	std::string out_file_pattern("out-?????.ts");
+	std::auto_ptr<FileArray::FileArray> out_filenames( new FileArray::Sequence(out_file_pattern, '?') );
 	IndexFile *index = new IndexFile("out.m3u8", duration);
 	std::string extra_options;
 	std::istream *in = &std::cin;
@@ -77,7 +78,8 @@ int main(int argc, char *argv[]) {
 			break;
 			
 		case 'o': /* output */
-			out_filenames.init(optarg, '?');
+			out_file_pattern.assign(optarg);
+			out_filenames->init(out_file_pattern, '?');
 			break;
 		case 'O': /* out-prefix */
 			index->setUriPrefix(optarg);
@@ -149,7 +151,7 @@ int main(int argc, char *argv[]) {
 	do {
 		std::ofstream out_file;
 		out_file.exceptions( std::ofstream::failbit | std::ofstream::badbit );
-		std::string out_filename = out_filenames.Filename( index->Sequence() );
+		std::string out_filename = out_filenames->Filename( index->Sequence() );
 		out_file.open(out_filename.c_str());
 		std::cerr << "Switching to file \"" << out_filename << "\"  ";
 

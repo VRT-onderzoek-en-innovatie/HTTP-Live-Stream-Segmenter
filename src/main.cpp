@@ -13,6 +13,7 @@
 #include "Crypto/CryptoAes128cbc.hpp"
 #include "Random/RandomC.hpp"
 #include "FileArray/Sequence.hpp"
+#include "FileArray/Timestamp.hpp"
 
 int main(int argc, char *argv[]) {
 	float duration = 10;
@@ -39,18 +40,21 @@ int main(int argc, char *argv[]) {
 		{"key",         required_argument,      NULL, 'k'},
 		{"key-prefix",  required_argument,      NULL, 'K'},
 		{"key-suffix",  required_argument,      NULL, 'S'},
+		{"timestamp",   no_argument,            NULL, 't'},
 		{NULL, 0, NULL, 0}
 	};
 
 	int option;
-	while( -1 != (option = getopt_long(argc, argv, "?i:o:O:s:l:e:I:L:c:k:K:S:", long_opts, NULL)) ) { switch(option) {
+	while( -1 != (option = getopt_long(argc, argv, "?i:o:O:s:l:e:I:L:c:k:K:S:t", long_opts, NULL)) ) { switch(option) {
     	case '?': /* help */
 			std::cerr << "Usage: " << argv[0] << " [options]\n"
 			          << "\n"
+					  //  <-------- --------- --------- -- 80 chars wide -- --------- --------- --------->
 					  << "Options are:\n"
 					  << "  -i --input s       Source file, default stdin.\n"
 					  << "  -o --output s      Destination pattern. '?' are replaced with a sequence\n"
 					  << "                     default \"out-?????.ts\"\n"
+					  << "  -t --timestamp     Fill in pattern with current timestamp instead of sequence\n"
 					  << "  -O --out-prefix s  Prefix to add to every output filename in the index\n"
 					  << "  -s --out-suffix s  Suffix to add to every output filename in the index\n"
 					  << "  -l --length s      Size of each segment, default 10\n"
@@ -137,7 +141,10 @@ int main(int argc, char *argv[]) {
 		case 'S': /* key-suffix */
 			index->setKeySuffix(optarg);
 			break;
-		
+
+		case 't': /* timestamp */
+			out_filenames.reset( new FileArray::Timestamp(out_file_pattern ,'?') );
+			break;
 	}}
 
 

@@ -6,7 +6,8 @@ common = main.cpp \
          IndexFile.cpp IndexFile.hpp IndexFileLive.cpp IndexFileLive.hpp \
          Segmenter/Segmenter.cpp Segmenter/Segmenter.hpp \
          FileArray/FileArray.cpp FileArray/FileArray.hpp \
-         FileArray/Sequence.cpp FileArray/Sequence.hpp
+         FileArray/Sequence.cpp FileArray/Sequence.hpp \
+         FileArray/Timestamp.cpp FileArray/Timestamp.hpp
 
 ByteCount_SOURCES = $(common) \
                     Segmenter/ByteCount.cpp Segmenter/ByteCount.hpp

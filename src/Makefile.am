@@ -5,7 +5,8 @@ common = main.cpp \
          Crypto/Crypto.cpp Crypto/Crypto.hpp Crypto/CryptoAes128cbc.cpp Crypto/CryptoAes128cbc.hpp \
          IndexFile.cpp IndexFile.hpp IndexFileLive.cpp IndexFileLive.hpp \
          Segmenter/Segmenter.cpp Segmenter/Segmenter.hpp \
-         FileArray/FileArray.cpp FileArray/Sequence.cpp
+         FileArray/FileArray.cpp FileArray/FileArray.hpp \
+         FileArray/Sequence.cpp FileArray/Sequence.hpp
 
 ByteCount_SOURCES = $(common) \
                     Segmenter/ByteCount.cpp Segmenter/ByteCount.hpp

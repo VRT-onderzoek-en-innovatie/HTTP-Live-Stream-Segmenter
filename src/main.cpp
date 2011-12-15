@@ -55,6 +55,7 @@ int main(int argc, char *argv[]) {
 					  << "  -o --output s      Destination pattern. '?' are replaced with a sequence\n"
 					  << "                     default \"out-?????.ts\"\n"
 					  << "  -t --timestamp     Fill in pattern with current timestamp instead of sequence\n"
+					  << "                     Probably only useful in Live-mode (see below)\n"
 					  << "  -O --out-prefix s  Prefix to add to every output filename in the index\n"
 					  << "  -s --out-suffix s  Suffix to add to every output filename in the index\n"
 					  << "  -l --length s      Size of each segment, default 10\n"

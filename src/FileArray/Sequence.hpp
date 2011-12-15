@@ -5,7 +5,7 @@
 
 namespace FileArray {
 
-class Sequence {
+class Sequence : public FileArray {
 protected:
 	std::string m_prefix, m_suffix;
 	unsigned short m_digits;

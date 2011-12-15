@@ -8,6 +8,7 @@ protected:
 	FileArray() {}
 
 public:
+	virtual void init(std::string pattern, char wildcard) =0;
 	virtual std::string Filename(unsigned long seq) =0;
 };
 

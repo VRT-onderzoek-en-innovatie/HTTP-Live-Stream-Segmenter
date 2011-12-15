@@ -125,7 +125,7 @@ int main(int argc, char *argv[]) {
 				exit(EX_USAGE);
 			}
 			break;
-			
+
 		case 'k': /* key */
 			key_filenames.init(optarg, '?');
 			break;

@@ -17,6 +17,13 @@
 
 #define STREAM_TYPE_VIDEO_H264      0x1b
 
+#define TS_PCR(t) (   (static_cast<unsigned long long>(static_cast<unsigned char>(t[6])) << 25) \
+                    | (static_cast<unsigned long long>(static_cast<unsigned char>(t[7])) << 17) \
+                    | (static_cast<unsigned long long>(static_cast<unsigned char>(t[8])) << 9) \
+                    | (static_cast<unsigned long long>(static_cast<unsigned char>(t[9])) << 1) \
+                    | (static_cast<unsigned long long>(static_cast<unsigned char>(t[10])) >> 7) \
+                  )
+
 namespace Segmenter {
 
 MpegtsH264::MpegtsH264(const unsigned long length, const std::string extra_opts) :
@@ -147,11 +154,7 @@ float MpegtsH264::copy_segment(std::istream *in, std::ostream *out) {
 		if( (m_pkt[3] & 0x20)	// Adaptation field present
 		 && m_pkt[4]	// Adaptation field length > 0
 		 && m_pkt[5] & 0x10 ) { // PCR present
-			pcr = (static_cast<unsigned char>(m_pkt[6]) << 25)
-			    | (static_cast<unsigned char>(m_pkt[7]) << 17) 
-			    | (static_cast<unsigned char>(m_pkt[8]) << 9)
-			    | (static_cast<unsigned char>(m_pkt[9]) << 1)
-			    | (static_cast<unsigned char>(m_pkt[10]) >> 7);
+			pcr = TS_PCR(m_pkt);
 		 	if( pcr_segstart_actual == -1 ) {
 				pcr_segstart_actual = pcr;
 			}

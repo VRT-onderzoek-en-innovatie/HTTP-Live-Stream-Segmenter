@@ -12,53 +12,16 @@
 #include "IndexFileLive.hpp"
 #include "Crypto/CryptoAes128cbc.hpp"
 #include "Random/RandomC.hpp"
-
-class FileArray {
-	std::string m_prefix, m_suffix;
-	unsigned short m_digits;
-
-public:
-	void init(std::string pattern, char wildcard) {
-		size_t seq_start = pattern.find_first_of(wildcard);
-		if( seq_start == std::string::npos ) {
-			std::ostringstream msg;
-			msg << "Pattern \"" << pattern << "\" does not contain wildcard character \"" << wildcard << "\"";
-			throw std::invalid_argument(msg.str());
-		}
-		m_prefix = pattern.substr(0, seq_start);
-
-		size_t seq_end = pattern.find_first_not_of(wildcard, seq_start);
-		if( seq_end != std::string::npos ) m_suffix = pattern.substr(seq_end);
-		
-		assert(seq_end > seq_start);
-
-		m_digits = seq_end - seq_start;
-	}
-
-	FileArray(std::string pattern, char wildcard) {
-		init(pattern, wildcard);
-	}
-
-	std::string Filename(unsigned long seq) {
-		static const char hex[] = {'0', '1', '2', '3', '4', '5', '6', '7',
-		                           '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
-		std::string ret = m_prefix;
-		for( typeof(m_digits) i = m_digits; i > 0; i-- ) {
-			ret += hex[ seq >> (i-1)*4 & 0x0f ];
-		}
-		ret += m_suffix;
-		return ret;
-	}
-};
+#include "FileArray/Sequence.hpp"
 
 int main(int argc, char *argv[]) {
 	float duration = 10;
-	FileArray out_filenames("out-?????.ts", '?');
+	FileArray::Sequence out_filenames("out-?????.ts", '?');
 	IndexFile *index = new IndexFile("out.m3u8", duration);
 	std::string extra_options;
 	std::istream *in = &std::cin;
 	unsigned long crypto = 0;
-	FileArray key_filenames("key-????.key", '?');
+	FileArray::Sequence key_filenames("key-????.key", '?');
 
 	static const struct option long_opts[] = {
 		/* name, arg, flag, val */

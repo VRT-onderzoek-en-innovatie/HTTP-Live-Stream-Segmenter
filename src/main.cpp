@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <assert.h>
 #include <math.h>
+#include <memory>
 
 #include "Segmenter/Segmenter.hpp"
 #include "IndexFile.hpp"

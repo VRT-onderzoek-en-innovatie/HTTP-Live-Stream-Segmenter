@@ -177,7 +177,7 @@ int main(int argc, char *argv[]) {
 		}
 
 		std::ostream *out = &out_file;
-		Crypto::Crypto *crypto_module = NULL;
+		Crypto *crypto_module = NULL;
 		if( crypto ) {
 			char iv[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 			for(unsigned char i=0; i < 4; i++ ) iv[15-i] = index->Sequence() >> (8*i);

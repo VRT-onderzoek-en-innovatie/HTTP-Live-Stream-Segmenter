@@ -193,7 +193,7 @@ float MpegtsH264::copy_segment(std::istream *in, std::ostream *out) {
 
 	m_pcr_segstart += m_pcr_length;
 
-	return ((pcr - pcr_segstart_actual) & 0x1ffffffffLL ) / TS_PCR_FREQ;
+	return ((pcr - pcr_segstart_actual) & 0x1ffffffffLL ) / float(TS_PCR_FREQ);
 }
 
 } // namespace

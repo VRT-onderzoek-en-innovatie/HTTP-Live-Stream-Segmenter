@@ -163,7 +163,7 @@ float MpegtsH264::copy_segment(std::istream *in, std::ostream *out) {
 		// Should we switch to the next segment?
 		if( ((pcr - pcr_segstart_actual) & 0x1ffffffffLL) >= m_pcr_length // Enough seconds
 		 && (m_h264_pid == TS_DUMMY_PID || pid == m_h264_pid) // if h264_pid is set, only match on that pid
-		 && TS_PAYLOAD_UNIT_START(m_pkt) // start of a new PES
+		 && TS_PAYLOAD_UNIT_START(m_pkt) == 0 // start of a new PES
 		 ) { // Parse the PES header
 			char *q = m_pkt;
 			q += TS_PAYLOAD_START(q);

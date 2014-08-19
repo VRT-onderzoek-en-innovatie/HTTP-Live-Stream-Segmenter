@@ -21,6 +21,7 @@ int CryptoProxyBuffer::overflow(int c) {
 		char *crypt_buf = new char[ m_module->blockSize() ];
 		m_module->encrypt(m_buf, crypt_buf);
 		m_output.write(crypt_buf, m_module->blockSize() );
+		delete crypt_buf;
 	}
 
 	return std::char_traits<char>::not_eof(c);
